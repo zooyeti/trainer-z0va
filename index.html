@@ -93,7 +93,7 @@
   .row { display: flex; gap: 10px; align-items: flex-end; }
   .field { flex: 1; }
   .field label { display: block; font-size: 12px; color: var(--muted); margin-bottom: 4px; }
-  .field input {
+  .field input, .field select {
     width: 100%;
     font-size: 16px;
     padding: 10px 12px;
@@ -102,7 +102,18 @@
     background: var(--surface-2);
     color: var(--text);
     min-height: 44px;
+    font-family: inherit;
   }
+  .stat-row { display: flex; gap: 10px; margin-bottom: 14px; }
+  .stat {
+    flex: 1;
+    background: var(--surface);
+    border: 1px solid var(--line);
+    border-radius: 12px;
+    padding: 12px 14px;
+  }
+  .stat .val { font-size: 22px; font-weight: 700; color: var(--accent); }
+  .stat .lbl { font-size: 12px; color: var(--muted); margin-top: 2px; }
   .last { font-size: 12px; color: var(--muted); margin-top: 6px; }
   table { width: 100%; border-collapse: collapse; font-size: 14px; }
   th, td { text-align: left; padding: 8px 6px; border-bottom: 1px solid var(--line); vertical-align: top; }
@@ -225,6 +236,7 @@
 
 <nav class="tabs">
   <a href="#/today" data-route="today"><span class="ic">✅</span>Today</a>
+  <a href="#/cardio" data-route="cardio"><span class="ic">🫀</span>Cardio</a>
   <a href="#/program" data-route="program"><span class="ic">📋</span>Program</a>
   <a href="#/history" data-route="history"><span class="ic">📈</span>History</a>
   <a href="#/roadmap" data-route="roadmap"><span class="ic">🗺️</span>Roadmap</a>
@@ -235,6 +247,7 @@
   "use strict";
 
   var LOG_KEY = "ronaldTrainingLog_v1";
+  var CARDIO_KEY = "ronaldCardioLog_v1";
   var DATA = null;
 
   function loadLog() {
@@ -245,6 +258,16 @@
   }
   function saveLog(log) {
     try { localStorage.setItem(LOG_KEY, JSON.stringify(log)); } catch (e) {}
+  }
+
+  function loadCardio() {
+    try {
+      var raw = localStorage.getItem(CARDIO_KEY);
+      return raw ? JSON.parse(raw) : [];
+    } catch (e) { return []; }
+  }
+  function saveCardio(log) {
+    try { localStorage.setItem(CARDIO_KEY, JSON.stringify(log)); } catch (e) {}
   }
 
   function esc(s) {
@@ -484,7 +507,111 @@
     document.getElementById("app").innerHTML = html;
   }
 
-  var ROUTES = { today: renderToday, program: renderProgram, history: renderHistory, roadmap: renderRoadmap };
+  function renderCardio() {
+    var log = loadCardio();
+    var latestVo2 = null, prevVo2 = null;
+    for (var i = log.length - 1; i >= 0; i--) {
+      if (log[i].vo2max != null) {
+        if (latestVo2 == null) { latestVo2 = log[i]; }
+        else if (prevVo2 == null) { prevVo2 = log[i]; break; }
+      }
+    }
+
+    var html = "";
+    html += '<p class="muted" style="margin-top:0">Log runs, hikes, bike sessions — whatever Garmin/Strava tracked, jotted down by hand. This is separate from the strength log.</p>';
+
+    if (latestVo2) {
+      var trend = "";
+      if (prevVo2 && prevVo2.vo2max != null) {
+        var diff = latestVo2.vo2max - prevVo2.vo2max;
+        trend = diff > 0 ? " ↑" : diff < 0 ? " ↓" : " →";
+      }
+      html += '<div class="stat-row"><div class="stat"><div class="val">' + latestVo2.vo2max + trend + '</div><div class="lbl">VO2 max · ' + fmtDate(latestVo2.date) + '</div></div></div>';
+    }
+
+    html += '<div class="card">';
+    html += '<h2>Log a session</h2>';
+    html += '<div class="row" style="margin-bottom:10px">';
+    html += '<div class="field"><label>Type</label><select id="cType"><option>Run</option><option>Hike</option><option>Bike</option><option>Swim</option><option>Other</option></select></div>';
+    html += '</div>';
+    html += '<div class="row" style="margin-bottom:10px">';
+    html += '<div class="field"><label>Distance (km)</label><input type="number" inputmode="decimal" step="0.1" min="0" id="cDistance"></div>';
+    html += '<div class="field"><label>Duration (min)</label><input type="number" inputmode="numeric" step="1" min="0" id="cDuration"></div>';
+    html += '</div>';
+    html += '<div class="row" style="margin-bottom:10px">';
+    html += '<div class="field"><label>VO2 max (optional)</label><input type="number" inputmode="numeric" step="1" min="0" id="cVo2"></div>';
+    html += '</div>';
+    html += '<div class="row" style="margin-bottom:12px">';
+    html += '<div class="field"><label>Notes (optional)</label><input type="text" id="cNotes" placeholder="e.g. felt easy, knee fine"></div>';
+    html += '</div>';
+    html += '<button class="primary" id="saveCardio">Save session</button>';
+    html += '</div>';
+
+    if (log.length) {
+      html += '<div class="card"><h2>Recent</h2>';
+      log.slice().reverse().slice(0, 15).forEach(function (c, revIdx) {
+        var realIdx = log.length - 1 - revIdx;
+        html += '<div class="history-item">';
+        html += '<div style="flex:1">';
+        html += '<div class="date">' + esc(c.type) + '</div>';
+        html += '<div class="meta">' + fmtDate(c.date) + '</div>';
+        var bits = [];
+        if (c.distance != null) bits.push(c.distance + 'km');
+        if (c.duration != null) bits.push(c.duration + 'min');
+        if (c.vo2max != null) bits.push('VO2 max ' + c.vo2max);
+        if (c.notes) bits.push(esc(c.notes));
+        html += '<div class="entries">' + bits.join(' · ') + '</div>';
+        html += '</div>';
+        html += '<button class="del" data-real-idx="' + realIdx + '">Delete</button>';
+        html += '</div>';
+      });
+      html += '</div>';
+    } else {
+      html += '<div class="empty">No cardio sessions logged yet.</div>';
+    }
+
+    var app = document.getElementById("app");
+    app.innerHTML = html;
+
+    document.getElementById("saveCardio").addEventListener("click", function () {
+      var type = document.getElementById("cType").value;
+      var distance = document.getElementById("cDistance").value;
+      var duration = document.getElementById("cDuration").value;
+      var vo2 = document.getElementById("cVo2").value;
+      var notes = document.getElementById("cNotes").value.trim();
+
+      if (distance === "" && duration === "" && vo2 === "" && !notes) {
+        toast("Nothing to save");
+        return;
+      }
+
+      var entry = { date: todayISO(), type: type };
+      if (distance !== "") entry.distance = parseFloat(distance);
+      if (duration !== "") entry.duration = parseInt(duration, 10);
+      if (vo2 !== "") entry.vo2max = parseInt(vo2, 10);
+      if (notes) entry.notes = notes;
+
+      var cardioLog = loadCardio();
+      cardioLog.push(entry);
+      saveCardio(cardioLog);
+      toast("Cardio session saved");
+      renderCardio();
+    });
+
+    app.querySelectorAll(".del").forEach(function (btn) {
+      btn.addEventListener("click", function () {
+        if (!confirm("Delete this session?")) return;
+        var idx = parseInt(btn.getAttribute("data-real-idx"), 10);
+        var cardioLog = loadCardio();
+        cardioLog.splice(idx, 1);
+        saveCardio(cardioLog);
+        renderCardio();
+        toast("Session deleted");
+      });
+    });
+  }
+
+  var ROUTES = { today: renderToday, cardio: renderCardio, program: renderProgram, history: renderHistory, roadmap: renderRoadmap };
 
   function route() {
     var hash = location.hash.replace(/^#\/?/, "") || "today";

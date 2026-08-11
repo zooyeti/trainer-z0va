@@ -1,4 +1,4 @@
-const CACHE = "ronald-training-v1";
+const CACHE = "ronald-training-v2";
 const CORE = ["./", "./index.html", "./data.json", "./manifest.json",
   "./icon-180.png", "./icon-192.png", "./icon-512.png", "./icon-512-maskable.png"];
 
