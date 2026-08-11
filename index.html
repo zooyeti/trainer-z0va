@@ -1,0 +1,524 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Ronald Training</title>
+<meta name="theme-color" content="#F7F2E9" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#1E1B1A" media="(prefers-color-scheme: dark)">
+<link rel="manifest" href="./manifest.json">
+<link rel="apple-touch-icon" href="./icon-180.png">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<style>
+  :root {
+    --bg: #F7F2E9;
+    --surface: #FFFFFF;
+    --surface-2: #EEE6D8;
+    --text: #2A2A2E;
+    --muted: #756E63;
+    --line: #E3D9C6;
+    --accent: #7A1F2B;
+    --accent-soft: #F1DEE0;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --bg: #1E1B1A;
+      --surface: #282422;
+      --surface-2: #332E2B;
+      --text: #F2EDE5;
+      --muted: #B0A79A;
+      --line: #3E3833;
+      --accent: #D98A96;
+      --accent-soft: #3A2429;
+    }
+  }
+  * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+  html, body { margin: 0; padding: 0; }
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    padding-bottom: calc(72px + env(safe-area-inset-bottom));
+    min-height: 100vh;
+  }
+  .wrap { max-width: 720px; margin: 0 auto; padding: 0 16px; }
+  header.top {
+    padding: calc(16px + env(safe-area-inset-top)) 16px 14px;
+    background: var(--surface);
+    border-bottom: 1px solid var(--line);
+  }
+  header.top .inner { max-width: 720px; margin: 0 auto; }
+  header.top h1 { margin: 0; font-size: 20px; letter-spacing: 0.02em; }
+  header.top .sub { color: var(--muted); font-size: 13px; margin-top: 3px; }
+  main { padding: 18px 0 24px; }
+  h2 { font-size: 17px; margin: 0 0 10px; }
+  p { line-height: 1.5; font-size: 15px; color: var(--text); }
+  .muted { color: var(--muted); }
+  .card {
+    background: var(--surface);
+    border: 1px solid var(--line);
+    border-radius: 14px;
+    padding: 16px;
+    margin-bottom: 14px;
+  }
+  .note {
+    background: var(--accent-soft);
+    border-radius: 12px;
+    padding: 14px;
+    margin-bottom: 14px;
+  }
+  .note p { margin: 0 0 8px; font-size: 14px; }
+  .note p:last-child { margin-bottom: 0; }
+  .pill {
+    display: inline-block;
+    background: var(--surface-2);
+    color: var(--muted);
+    font-size: 12px;
+    padding: 4px 10px;
+    border-radius: 999px;
+    margin-bottom: 10px;
+  }
+  .pill.accent { background: var(--accent); color: var(--bg); }
+  .exlist { display: flex; flex-direction: column; gap: 12px; }
+  .ex {
+    border: 1px solid var(--line);
+    border-radius: 12px;
+    padding: 12px 14px;
+    background: var(--surface);
+  }
+  .ex .name { font-weight: 600; font-size: 15px; margin-bottom: 2px; }
+  .ex .scheme { color: var(--muted); font-size: 13px; margin-bottom: 4px; }
+  .ex .notes { color: var(--muted); font-size: 13px; margin-bottom: 10px; line-height: 1.4; }
+  .row { display: flex; gap: 10px; align-items: flex-end; }
+  .field { flex: 1; }
+  .field label { display: block; font-size: 12px; color: var(--muted); margin-bottom: 4px; }
+  .field input {
+    width: 100%;
+    font-size: 16px;
+    padding: 10px 12px;
+    border-radius: 10px;
+    border: 1px solid var(--line);
+    background: var(--surface-2);
+    color: var(--text);
+    min-height: 44px;
+  }
+  .last { font-size: 12px; color: var(--muted); margin-top: 6px; }
+  table { width: 100%; border-collapse: collapse; font-size: 14px; }
+  th, td { text-align: left; padding: 8px 6px; border-bottom: 1px solid var(--line); vertical-align: top; }
+  th { color: var(--muted); font-weight: 600; font-size: 12px; text-transform: uppercase; letter-spacing: 0.03em; }
+  ul.list { margin: 0; padding-left: 20px; }
+  ul.list li { margin-bottom: 8px; font-size: 15px; line-height: 1.5; }
+  button.primary {
+    width: 100%;
+    background: var(--accent);
+    color: var(--bg);
+    border: none;
+    border-radius: 12px;
+    padding: 14px;
+    font-size: 16px;
+    font-weight: 600;
+    min-height: 48px;
+    cursor: pointer;
+    transition: transform .08s ease;
+  }
+  button.primary:active { transform: scale(.985); }
+  button.ghost {
+    width: 100%;
+    background: transparent;
+    color: var(--accent);
+    border: 1px solid var(--accent);
+    border-radius: 12px;
+    padding: 12px;
+    font-size: 14px;
+    font-weight: 600;
+    min-height: 44px;
+    cursor: pointer;
+    margin-top: 8px;
+  }
+  button.ghost:active { transform: scale(.985); }
+  .switch { text-align: center; margin-top: 10px; }
+  .switch a { color: var(--muted); font-size: 13px; text-decoration: underline; }
+  .history-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 10px;
+    padding: 12px 0;
+    border-bottom: 1px solid var(--line);
+  }
+  .history-item:last-child { border-bottom: none; }
+  .history-item .date { font-weight: 600; font-size: 14px; }
+  .history-item .meta { color: var(--muted); font-size: 12px; margin-top: 2px; }
+  .history-item .entries { font-size: 13px; color: var(--text); margin-top: 6px; line-height: 1.5; }
+  .del {
+    background: none;
+    border: none;
+    color: var(--muted);
+    font-size: 12px;
+    text-decoration: underline;
+    cursor: pointer;
+    padding: 6px;
+    min-height: 32px;
+  }
+  .empty { color: var(--muted); font-size: 14px; text-align: center; padding: 24px 0; }
+  .toast {
+    position: fixed;
+    left: 50%;
+    bottom: calc(84px + env(safe-area-inset-bottom));
+    transform: translateX(-50%);
+    background: var(--accent);
+    color: var(--bg);
+    padding: 10px 18px;
+    border-radius: 999px;
+    font-size: 14px;
+    font-weight: 600;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity .2s ease;
+    z-index: 20;
+    white-space: nowrap;
+  }
+  .toast.show { opacity: 1; }
+  nav.tabs {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background: var(--surface);
+    border-top: 1px solid var(--line);
+    padding: 8px 8px calc(8px + env(safe-area-inset-bottom));
+    display: flex;
+    z-index: 10;
+  }
+  nav.tabs a {
+    flex: 1;
+    text-align: center;
+    color: var(--muted);
+    text-decoration: none;
+    font-size: 12px;
+    padding: 8px 4px;
+    min-height: 44px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 3px;
+    border-radius: 10px;
+  }
+  nav.tabs a .ic { font-size: 18px; }
+  nav.tabs a.active { color: var(--accent); font-weight: 600; }
+</style>
+</head>
+<body>
+
+<header class="top">
+  <div class="inner">
+    <h1 id="phaseTitle">Ronald</h1>
+    <div class="sub" id="phaseSub">Loading…</div>
+  </div>
+</header>
+
+<main class="wrap" id="app"></main>
+
+<div class="toast" id="toast"></div>
+
+<nav class="tabs">
+  <a href="#/today" data-route="today"><span class="ic">✅</span>Today</a>
+  <a href="#/program" data-route="program"><span class="ic">📋</span>Program</a>
+  <a href="#/history" data-route="history"><span class="ic">📈</span>History</a>
+  <a href="#/roadmap" data-route="roadmap"><span class="ic">🗺️</span>Roadmap</a>
+</nav>
+
+<script>
+(function () {
+  "use strict";
+
+  var LOG_KEY = "ronaldTrainingLog_v1";
+  var DATA = null;
+
+  function loadLog() {
+    try {
+      var raw = localStorage.getItem(LOG_KEY);
+      return raw ? JSON.parse(raw) : [];
+    } catch (e) { return []; }
+  }
+  function saveLog(log) {
+    try { localStorage.setItem(LOG_KEY, JSON.stringify(log)); } catch (e) {}
+  }
+
+  function esc(s) {
+    return String(s == null ? "" : s).replace(/[&<>"']/g, function (c) {
+      return { "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c];
+    });
+  }
+
+  function fmtDate(iso) {
+    var d = new Date(iso + "T12:00:00");
+    if (isNaN(d)) return iso;
+    return d.toLocaleDateString(undefined, { day: "numeric", month: "short" });
+  }
+
+  function todayISO() {
+    var d = new Date();
+    var m = d.getMonth() + 1, day = d.getDate();
+    return d.getFullYear() + "-" + (m < 10 ? "0" + m : m) + "-" + (day < 10 ? "0" + day : day);
+  }
+
+  function nextWorkoutLetter(log) {
+    if (!log.length) return "A";
+    var last = log[log.length - 1].workout;
+    return last === "A" ? "B" : "A";
+  }
+
+  function lastEntryFor(log, exerciseName) {
+    for (var i = log.length - 1; i >= 0; i--) {
+      var entries = log[i].entries || [];
+      for (var j = 0; j < entries.length; j++) {
+        if (entries[j].name === exerciseName) {
+          var found = entries[j];
+          found._date = log[i].date;
+          return found;
+        }
+      }
+    }
+    return null;
+  }
+
+  function toast(msg) {
+    var t = document.getElementById("toast");
+    t.textContent = msg;
+    t.classList.add("show");
+    clearTimeout(toast._t);
+    toast._t = setTimeout(function () { t.classList.remove("show"); }, 1800);
+  }
+
+  // ---------- routes ----------
+
+  function renderToday() {
+    var log = loadLog();
+    var letter = (window._forceWorkout) || nextWorkoutLetter(log);
+    var w = DATA.workouts[letter];
+    var sessionNum = log.length + 1;
+    var weekApprox = Math.floor(log.length / 3) + 1;
+
+    var html = "";
+    html += '<div class="pill accent">Session ' + sessionNum + ' · ~Week ' + weekApprox + '</div>';
+    html += '<h2>' + esc(w.label) + ' — ' + esc(w.name) + '</h2>';
+    html += '<p class="muted" style="margin-top:-6px">Log what you actually did — weight and reps, or seconds held. Leave anything blank you skipped.</p>';
+
+    html += '<div class="exlist" id="exlist">';
+    w.exercises.forEach(function (ex, i) {
+      var last = lastEntryFor(log, ex.name);
+      html += '<div class="ex" data-idx="' + i + '">';
+      html += '<div class="name">' + esc(ex.name) + '</div>';
+      html += '<div class="scheme">' + ex.sets + ' × ' + esc(ex.reps) + '</div>';
+      html += '<div class="notes">' + esc(ex.notes) + '</div>';
+
+      if (ex.track === "weight") {
+        html += '<div class="row">';
+        html += '<div class="field"><label>Weight (kg)</label><input type="number" inputmode="decimal" step="0.5" min="0" data-field="weight" placeholder="' + (last && last.weight != null ? last.weight : "—") + '"></div>';
+        html += '<div class="field"><label>Reps</label><input type="number" inputmode="numeric" step="1" min="0" data-field="reps" placeholder="' + (last && last.reps != null ? last.reps : "—") + '"></div>';
+        html += '</div>';
+        if (last && last.weight != null) {
+          html += '<div class="last">Last time: ' + last.weight + 'kg × ' + (last.reps != null ? last.reps : "?") + ' (' + fmtDate(last._date) + ')</div>';
+        }
+      } else if (ex.track === "time") {
+        html += '<div class="row">';
+        html += '<div class="field"><label>Seconds held</label><input type="number" inputmode="numeric" step="1" min="0" data-field="seconds" placeholder="' + (last && last.seconds != null ? last.seconds : "—") + '"></div>';
+        html += '</div>';
+        if (last && last.seconds != null) {
+          html += '<div class="last">Last time: ' + last.seconds + 's (' + fmtDate(last._date) + ')</div>';
+        }
+      } else {
+        html += '<div class="row">';
+        html += '<div class="field"><label>Reps done</label><input type="number" inputmode="numeric" step="1" min="0" data-field="reps" placeholder="' + (last && last.reps != null ? last.reps : "—") + '"></div>';
+        html += '</div>';
+        if (last && last.reps != null) {
+          html += '<div class="last">Last time: ' + last.reps + ' reps (' + fmtDate(last._date) + ')</div>';
+        }
+      }
+      html += '</div>';
+    });
+    html += '</div>';
+
+    html += '<button class="primary" id="saveSession" style="margin-top:6px">Save ' + letter + ' session</button>';
+    html += '<div class="switch"><a href="#" id="switchWorkout">Log Workout ' + (letter === "A" ? "B" : "A") + ' instead</a></div>';
+
+    var app = document.getElementById("app");
+    app.innerHTML = html;
+
+    document.getElementById("switchWorkout").addEventListener("click", function (e) {
+      e.preventDefault();
+      window._forceWorkout = letter === "A" ? "B" : "A";
+      renderToday();
+    });
+
+    document.getElementById("saveSession").addEventListener("click", function () {
+      var entries = [];
+      var nodes = document.querySelectorAll("#exlist .ex");
+      nodes.forEach(function (node) {
+        var idx = parseInt(node.getAttribute("data-idx"), 10);
+        var ex = w.exercises[idx];
+        var entry = { name: ex.name, track: ex.track };
+        var has = false;
+        if (ex.track === "weight") {
+          var weight = node.querySelector('[data-field="weight"]').value;
+          var reps = node.querySelector('[data-field="reps"]').value;
+          if (weight !== "") { entry.weight = parseFloat(weight); has = true; }
+          if (reps !== "") { entry.reps = parseInt(reps, 10); has = true; }
+        } else if (ex.track === "time") {
+          var sec = node.querySelector('[data-field="seconds"]').value;
+          if (sec !== "") { entry.seconds = parseInt(sec, 10); has = true; }
+        } else {
+          var r = node.querySelector('[data-field="reps"]').value;
+          if (r !== "") { entry.reps = parseInt(r, 10); has = true; }
+        }
+        if (has) entries.push(entry);
+      });
+
+      var log = loadLog();
+      var session = { date: todayISO(), workout: letter, entries: entries };
+      log.push(session);
+      saveLog(log);
+      window._forceWorkout = null;
+      toast("Session saved");
+      renderToday();
+    });
+  }
+
+  function renderProgram() {
+    var html = "";
+    html += '<div class="card"><h2>The big picture</h2>';
+    DATA.bigPicture.forEach(function (p) { html += "<p>" + esc(p) + "</p>"; });
+    html += "</div>";
+
+    html += '<div class="note"><h2 style="margin-bottom:8px">ACL &amp; hiatal hernia — how this plan fits</h2>';
+    DATA.constraints.forEach(function (p) { html += "<p>" + esc(p) + "</p>"; });
+    html += "</div>";
+
+    html += '<div class="card"><h2>How this works</h2><ul class="list">';
+    DATA.howItWorks.forEach(function (b) { html += "<li>" + esc(b) + "</li>"; });
+    html += "</ul></div>";
+
+    ["A", "B"].forEach(function (letter) {
+      var w = DATA.workouts[letter];
+      html += '<div class="card"><h2>' + esc(w.label) + ' — ' + esc(w.name) + '</h2>';
+      html += '<table><thead><tr><th>Exercise</th><th>Sets</th><th>Reps</th></tr></thead><tbody>';
+      w.exercises.forEach(function (ex) {
+        html += '<tr><td>' + esc(ex.name) + '<div class="muted" style="font-size:12px;margin-top:2px">' + esc(ex.notes) + '</div></td><td>' + ex.sets + '</td><td>' + esc(ex.reps) + '</td></tr>';
+      });
+      html += '</tbody></table></div>';
+    });
+
+    html += '<div class="card"><h2>Conditioning / VO2 max</h2>';
+    DATA.conditioning.forEach(function (p) { html += "<p>" + esc(p) + "</p>"; });
+    html += "</div>";
+
+    document.getElementById("app").innerHTML = html;
+  }
+
+  function renderHistory() {
+    var log = loadLog().slice().reverse();
+    var html = "";
+    if (!log.length) {
+      html = '<div class="empty">No sessions logged yet.<br>Head to Today to log your first one.</div>';
+    } else {
+      html += '<div class="card">';
+      log.forEach(function (session, revIdx) {
+        var realIdx = log.length - 1 - revIdx;
+        var w = DATA.workouts[session.workout];
+        html += '<div class="history-item">';
+        html += '<div style="flex:1">';
+        html += '<div class="date">' + esc(session.workout) + ' — ' + esc(w ? w.name : "") + '</div>';
+        html += '<div class="meta">' + fmtDate(session.date) + '</div>';
+        if (session.entries && session.entries.length) {
+          html += '<div class="entries">' + session.entries.map(function (e) {
+            if (e.track === "weight") return esc(e.name) + ": " + (e.weight != null ? e.weight + "kg" : "—") + (e.reps != null ? " × " + e.reps : "");
+            if (e.track === "time") return esc(e.name) + ": " + (e.seconds != null ? e.seconds + "s" : "—");
+            return esc(e.name) + ": " + (e.reps != null ? e.reps + " reps" : "—");
+          }).join("<br>") + '</div>';
+        } else {
+          html += '<div class="entries muted">Nothing logged for this session</div>';
+        }
+        html += '</div>';
+        html += '<button class="del" data-real-idx="' + realIdx + '">Delete</button>';
+        html += '</div>';
+      });
+      html += '</div>';
+    }
+    var app = document.getElementById("app");
+    app.innerHTML = html;
+    app.querySelectorAll(".del").forEach(function (btn) {
+      btn.addEventListener("click", function () {
+        if (!confirm("Delete this session?")) return;
+        var idx = parseInt(btn.getAttribute("data-real-idx"), 10);
+        var log = loadLog();
+        log.splice(idx, 1);
+        saveLog(log);
+        renderHistory();
+        toast("Session deleted");
+      });
+    });
+  }
+
+  function renderRoadmap() {
+    var html = "";
+    html += '<div class="card"><h2>8-week schedule</h2>';
+    html += '<table><thead><tr><th>Week</th><th>Rotation</th></tr></thead><tbody>';
+    DATA.schedule.forEach(function (row) {
+      html += '<tr><td>' + row.week + '</td><td>' + esc(row.rotation) + (row.note ? '<div class="muted" style="font-size:12px;margin-top:2px">' + esc(row.note) + '</div>' : '') + '</td></tr>';
+    });
+    html += '</tbody></table></div>';
+
+    html += '<div class="card"><h2>Where this goes next</h2>';
+    DATA.roadmap.forEach(function (r) {
+      html += '<div style="margin-bottom:14px"><div style="font-weight:600;font-size:14px">' + esc(r.phase) + ' — <span class="muted" style="font-weight:400">' + esc(r.trigger) + '</span></div><p style="margin-top:6px">' + esc(r.text) + '</p></div>';
+    });
+    html += '</div>';
+
+    html += '<div class="card"><h2>A few notes</h2><ul class="list">';
+    DATA.notes.forEach(function (n) { html += "<li>" + esc(n) + "</li>"; });
+    html += '</ul></div>';
+
+    document.getElementById("app").innerHTML = html;
+  }
+
+  var ROUTES = { today: renderToday, program: renderProgram, history: renderHistory, roadmap: renderRoadmap };
+
+  function route() {
+    var hash = location.hash.replace(/^#\/?/, "") || "today";
+    var name = hash.split("/")[0];
+    if (!ROUTES[name]) name = "today";
+    window._forceWorkout = null;
+    ROUTES[name]();
+    document.querySelectorAll("nav.tabs a").forEach(function (a) {
+      a.classList.toggle("active", a.getAttribute("data-route") === name);
+    });
+    window.scrollTo(0, 0);
+  }
+
+  window.addEventListener("hashchange", route);
+
+  fetch("./data.json?v=" + Date.now())
+    .then(function (r) { return r.json(); })
+    .then(function (data) {
+      DATA = data;
+      document.getElementById("phaseTitle").textContent = "Ronald — " + data.phase;
+      document.getElementById("phaseSub").textContent = data.tagline + " · updated " + fmtDate(data.updated);
+      route();
+    })
+    .catch(function (err) {
+      document.getElementById("app").innerHTML = '<div class="empty">Could not load the program data. Check your connection and reload.</div>';
+      console.error(err);
+    });
+
+  if ("serviceWorker" in navigator) {
+    window.addEventListener("load", function () {
+      navigator.serviceWorker.register("./sw.js").catch(function () {});
+    });
+  }
+})();
+</script>
+</body>
+</html>

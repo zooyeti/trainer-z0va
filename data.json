@@ -1,0 +1,75 @@
+{
+  "updated": "2026-08-11",
+  "phase": "Phase 1: Strength Base",
+  "tagline": "3 days/week · David Lloyd · ACL rehab-compatible · hiatal hernia–aware",
+  "bigPicture": [
+    "General strength matters to you long-term — you want to build it back and keep it as you age, and you enjoyed how it felt when you trained more before. VO2 max is currently poor per Garmin, and it's a specific priority to improve.",
+    "The direction all of this is pointing: UK Three Peaks in around 18 months, and long, hilly, possibly multi-day hikes with your wife. Beyond that, further out and more aspirational — Selvaggio Blu, mountain scrambling, top-rope climbing, via ferrata, and skiing. Lower down the list but worth keeping in view: casual football and amateur boxing training, purely for fitness, once you're physically able.",
+    "This is a mountain-athlete direction more than a bodybuilding one — the plan is built to serve carrying capacity, aerobic engine, pulling/grip strength, and durable joints over raw aesthetics."
+  ],
+  "constraints": [
+    "You're 9 weeks post ACL reconstruction (injured April 2026), fully weight-bearing. Physio already has you on weighted leg press, barbell squats, single-leg balancing, leg extension, and stationary bike. This plan doesn't touch any of that — no lower-body loading, no balance drills, no cardio-progression decisions on the bike. That stays entirely with physio.",
+    "What this plan adds is everything physio isn't already covering: upper-body strength, hernia-safe core work, and a light aerobic top-up. Once physio clears running, you're planning to restart Couch to 5K — that's the trigger to move into Phase 2.",
+    "For the hiatal hernia: no inversions or deep forward folds under load, and heavy max-effort bracing/breath-holding is avoided by default — incline press instead of flat bench, chest-supported rows instead of bent-over, no crunch-pattern core work. If a specific heavy or bracing-dependent exercise would be worth including, ask rather than just leaving it out. General rules throughout: exhale on the hard part of every rep, train 2–3 hours after eating where you can, and skip the weight belt.",
+    "None of this is medical advice — it's programming caution layered on top of what your physio and doctor have already told you. If anything triggers reflux, burning, chest pressure, or knee pain, stop that exercise and flag it."
+  ],
+  "howItWorks": [
+    "Three sessions per week, alternating Workout A and Workout B (A-B-A one week, B-A-B the next). These can land on the same day as a physio session if that's easier to schedule — do the physio work first, this plan second.",
+    "Warm up for 5 minutes: easy bike (well within physio-comfortable effort) plus arm circles, band pull-aparts, and thoracic rotations. Skip deep forward folds.",
+    "Rest 60–90 seconds between sets.",
+    "Aim for the top of the rep range with 1–2 reps left in the tank. When you hit the top of the range on all sets with good form, add a small amount of weight next session (2.5 kg upper body). If a lift stalls or form breaks down, repeat the same weight.",
+    "Exhale on the push/pull/press — never hold your breath and strain.",
+    "Finish with the conditioning block, unless it's a physio day and your legs are already cooked — skip it that day and just do the strength work."
+  ],
+  "workouts": {
+    "A": {
+      "label": "Workout A",
+      "name": "Horizontal Focus",
+      "exercises": [
+        { "name": "Incline Dumbbell Press", "sets": 3, "reps": "10–12", "notes": "Elevated torso, not flat bench — reduces reflux risk. Exhale on the push.", "track": "weight" },
+        { "name": "Chest-Supported Dumbbell Row", "sets": 3, "reps": "10–12", "notes": "Torso supported — no forward compression of the abdomen.", "track": "weight" },
+        { "name": "Standing Cable Face Pull", "sets": 2, "reps": "12–15", "notes": "Rear delts/upper back — builds the pulling and overhead durability scrambling and via ferrata demand.", "track": "weight" },
+        { "name": "Dumbbell Bicep Curl", "sets": 2, "reps": "12–15", "notes": "Light accessory work.", "track": "weight" },
+        { "name": "Plank", "sets": 3, "reps": "20–30 sec", "notes": "Stop before you need to strain to hold position, not a max-effort hold.", "track": "time" },
+        { "name": "Pallof Press", "sets": 2, "reps": "10–12/side", "notes": "Cable, anti-rotation. Light-moderate load, slow and controlled, steady breathing throughout.", "track": "weight" }
+      ]
+    },
+    "B": {
+      "label": "Workout B",
+      "name": "Vertical Focus",
+      "exercises": [
+        { "name": "Seated Dumbbell Shoulder Press", "sets": 3, "reps": "10–12", "notes": "Moderate load, exhale on the push.", "track": "weight" },
+        { "name": "Lat Pulldown", "sets": 3, "reps": "10–12", "notes": "Control the negative — supported, no bracing needed.", "track": "weight" },
+        { "name": "Cable Tricep Pushdown", "sets": 2, "reps": "12–15", "notes": "Light accessory work.", "track": "weight" },
+        { "name": "Rear Delt Fly", "sets": 2, "reps": "12–15", "notes": "Cable or dumbbell. Shoulder health and posture.", "track": "weight" },
+        { "name": "Dead Bug", "sets": 3, "reps": "10–12", "notes": "Slow and controlled — press low back gently into the floor, don't crunch.", "track": "bodyweight" },
+        { "name": "Bird Dog", "sets": 3, "reps": "10/side", "notes": "Trunk stability without loading the knee — complements, doesn't duplicate, physio's balance work.", "track": "bodyweight" }
+      ]
+    }
+  },
+  "conditioning": [
+    "VO2 max is a stated priority, but the main aerobic tool you have right now — the stationary bike — already belongs to physio's rehab progression. Rather than layering separate volume on top without their input, ask them whether you can start adding light interval structure (easy/moderate alternating minutes) to what you're already doing there.",
+    "In the meantime, this plan adds a short, easy aerobic finisher after Workout A and B — 5–10 minutes on the bike at a conversational pace, well inside anything physio has already cleared. This isn't the VO2 max driver; it's just extra low-stakes frequency while the bigger aerobic push waits for the pieces (running clearance, physio input on bike intervals) to line up.",
+    "Once physio clears running and Couch to 5K restarts, that becomes the primary VO2 max driver and this plan shifts into Phase 2."
+  ],
+  "schedule": [
+    { "week": 1, "rotation": "A – B – A", "note": "" },
+    { "week": 2, "rotation": "B – A – B", "note": "" },
+    { "week": 3, "rotation": "A – B – A", "note": "" },
+    { "week": 4, "rotation": "B – A – B", "note": "Check in on load, symptoms, and any physio updates" },
+    { "week": 5, "rotation": "A – B – A", "note": "Small load increase where a full session felt easy and symptom-free" },
+    { "week": 6, "rotation": "B – A – B", "note": "" },
+    { "week": 7, "rotation": "A – B – A", "note": "" },
+    { "week": 8, "rotation": "B – A – B", "note": "Reassess and plan Phase 2 based on where physio/rehab is at" }
+  ],
+  "roadmap": [
+    { "phase": "Phase 2", "trigger": "Once physio clears running", "text": "Restart Couch to 5K as the main aerobic driver, keep the upper-body strength work going, and start adding loaded carries and step-ups as leg loading opens up outside the clinic." },
+    { "phase": "Phase 3", "trigger": "Roughly 6–12 months out, building toward Three Peaks and longer hikes", "text": "Shift toward hiking-specific conditioning — longer steady-state cardio, weighted rucking, full lower-body strength reintegrated, grip and pulling strength for scrambling and via ferrata." },
+    { "phase": "Phase 4", "trigger": "12–18 months, Three Peaks readiness", "text": "Peak aerobic capacity and multi-day load tolerance, then maintain general strength and adventure-specific conditioning for Selvaggio Blu, top-rope climbing, and skiing. Football and boxing can slot in as fun add-ons whenever you're ready — they don't need a dedicated block." }
+  ],
+  "notes": [
+    "Progress load conservatively — small increases only when a full session feels easy and symptom-free, not on a fixed schedule.",
+    "If reflux or knee discomfort shows up on gym days regardless of these adjustments, that's worth flagging to your doctor/physio rather than pushing through.",
+    "Note any physio changes (clearances, restrictions, running green light) — that's what moves this plan into its next phase."
+  ]
+}
