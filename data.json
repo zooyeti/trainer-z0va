@@ -1,5 +1,5 @@
 {
-  "updated": "2026-08-11",
+  "updated": "2026-08-12",
   "phase": "Phase 1: Strength Base",
   "tagline": "3 days/week · David Lloyd · ACL rehab-compatible · hiatal hernia–aware",
   "bigPicture": [
@@ -26,24 +26,24 @@
       "label": "Workout A",
       "name": "Horizontal Focus",
       "exercises": [
-        { "name": "Incline Dumbbell Press", "sets": 3, "reps": "10–12", "notes": "Elevated torso, not flat bench — reduces reflux risk. Exhale on the push.", "track": "weight" },
-        { "name": "Chest-Supported Dumbbell Row", "sets": 3, "reps": "10–12", "notes": "Torso supported — no forward compression of the abdomen.", "track": "weight" },
-        { "name": "Standing Cable Face Pull", "sets": 2, "reps": "12–15", "notes": "Rear delts/upper back — builds the pulling and overhead durability scrambling and via ferrata demand.", "track": "weight" },
-        { "name": "Dumbbell Bicep Curl", "sets": 2, "reps": "12–15", "notes": "Light accessory work.", "track": "weight" },
-        { "name": "Plank", "sets": 3, "reps": "20–30 sec", "notes": "Stop before you need to strain to hold position, not a max-effort hold.", "track": "time" },
-        { "name": "Pallof Press", "sets": 2, "reps": "10–12/side", "notes": "Cable, anti-rotation. Light-moderate load, slow and controlled, steady breathing throughout.", "track": "weight" }
+        { "name": "Incline Dumbbell Press", "sets": 3, "reps": "10–12", "notes": "Elevated torso, not flat bench — reduces reflux risk. Exhale on the push.", "track": "weight", "guide": "https://www.muscleandstrength.com/exercises/incline-dumbbell-bench-press.html" },
+        { "name": "Chest-Supported Dumbbell Row", "sets": 3, "reps": "10–12", "notes": "Torso supported — no forward compression of the abdomen.", "track": "weight", "guide": "https://learn.athleanx.com/articles/back-for-men/chest-supported-row" },
+        { "name": "Standing Cable Face Pull", "sets": 2, "reps": "12–15", "notes": "Rear delts/upper back — builds the pulling and overhead durability scrambling and via ferrata demand.", "track": "weight", "guide": "https://learn.athleanx.com/articles/shoulders-for-men/stop-doing-face-pulls-like-this" },
+        { "name": "Dumbbell Bicep Curl", "sets": 2, "reps": "12–15", "notes": "Light accessory work.", "track": "weight", "guide": "https://learn.athleanx.com/articles/how-to-do-bicep-curls" },
+        { "name": "Plank", "sets": 3, "reps": "20–30 sec", "notes": "Stop before you need to strain to hold position, not a max-effort hold.", "track": "time", "guide": "https://blog.nasm.org/standard-plank-with-variations" },
+        { "name": "Pallof Press", "sets": 2, "reps": "10–12/side", "notes": "Cable, anti-rotation. Light-moderate load, slow and controlled, steady breathing throughout.", "track": "weight", "guide": "https://musclewiki.com/exercise/cable-pallof-press" }
       ]
     },
     "B": {
       "label": "Workout B",
       "name": "Vertical Focus",
       "exercises": [
-        { "name": "Seated Dumbbell Shoulder Press", "sets": 3, "reps": "10–12", "notes": "Moderate load, exhale on the push.", "track": "weight" },
-        { "name": "Lat Pulldown", "sets": 3, "reps": "10–12", "notes": "Control the negative — supported, no bracing needed.", "track": "weight" },
-        { "name": "Cable Tricep Pushdown", "sets": 2, "reps": "12–15", "notes": "Light accessory work.", "track": "weight" },
-        { "name": "Rear Delt Fly", "sets": 2, "reps": "12–15", "notes": "Cable or dumbbell. Shoulder health and posture.", "track": "weight" },
-        { "name": "Dead Bug", "sets": 3, "reps": "10–12", "notes": "Slow and controlled — press low back gently into the floor, don't crunch.", "track": "bodyweight" },
-        { "name": "Bird Dog", "sets": 3, "reps": "10/side", "notes": "Trunk stability without loading the knee — complements, doesn't duplicate, physio's balance work.", "track": "bodyweight" }
+        { "name": "Seated Dumbbell Shoulder Press", "sets": 3, "reps": "10–12", "notes": "Moderate load, exhale on the push.", "track": "weight", "guide": "https://learn.athleanx.com/articles/shoulders-for-men/seated-dumbbell-press" },
+        { "name": "Lat Pulldown", "sets": 3, "reps": "10–12", "notes": "Control the negative — supported, no bracing needed.", "track": "weight", "guide": "https://learn.athleanx.com/articles/back-for-men/lat-pulldowns-bad-form-big-gains" },
+        { "name": "Cable Tricep Pushdown", "sets": 2, "reps": "12–15", "notes": "Light accessory work.", "track": "weight", "guide": "https://www.acefitness.org/resources/everyone/exercise-library/185/triceps-pushdowns/" },
+        { "name": "Rear Delt Fly", "sets": 2, "reps": "12–15", "notes": "Cable or dumbbell. Shoulder health and posture.", "track": "weight", "guide": "https://www.puregym.com/exercises/arms-and-shoulders/rear-delt-exercises/cable-rear-delt-flyes/" },
+        { "name": "Dead Bug", "sets": 3, "reps": "10–12", "notes": "Slow and controlled — press low back gently into the floor, don't crunch.", "track": "bodyweight", "guide": "https://www.nasm.org/resource-center/exercise-library/dead-bug" },
+        { "name": "Bird Dog", "sets": 3, "reps": "10/side", "notes": "Trunk stability without loading the knee — complements, doesn't duplicate, physio's balance work.", "track": "bodyweight", "guide": "https://www.acefitness.org/resources/everyone/exercise-library/14/bird-dog/" }
       ]
     }
   },

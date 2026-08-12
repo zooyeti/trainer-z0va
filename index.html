@@ -90,6 +90,8 @@
   .ex .name { font-weight: 600; font-size: 15px; margin-bottom: 2px; }
   .ex .scheme { color: var(--muted); font-size: 13px; margin-bottom: 4px; }
   .ex .notes { color: var(--muted); font-size: 13px; margin-bottom: 10px; line-height: 1.4; }
+  a.guide { display: inline-block; color: var(--accent); font-size: 12px; font-weight: 600; text-decoration: none; margin-bottom: 10px; }
+  a.guide:active { opacity: 0.7; }
   .row { display: flex; gap: 10px; align-items: flex-end; }
   .field { flex: 1; }
   .field label { display: block; font-size: 12px; color: var(--muted); margin-bottom: 4px; }
@@ -337,6 +339,9 @@
       html += '<div class="name">' + esc(ex.name) + '</div>';
       html += '<div class="scheme">' + ex.sets + ' × ' + esc(ex.reps) + '</div>';
       html += '<div class="notes">' + esc(ex.notes) + '</div>';
+      if (ex.guide) {
+        html += '<a class="guide" href="' + esc(ex.guide) + '" target="_blank" rel="noopener">How to do this ›</a>';
+      }
 
       if (ex.track === "weight") {
         html += '<div class="row">';
@@ -429,7 +434,7 @@
       html += '<div class="card"><h2>' + esc(w.label) + ' — ' + esc(w.name) + '</h2>';
       html += '<table><thead><tr><th>Exercise</th><th>Sets</th><th>Reps</th></tr></thead><tbody>';
       w.exercises.forEach(function (ex) {
-        html += '<tr><td>' + esc(ex.name) + '<div class="muted" style="font-size:12px;margin-top:2px">' + esc(ex.notes) + '</div></td><td>' + ex.sets + '</td><td>' + esc(ex.reps) + '</td></tr>';
+        html += '<tr><td>' + esc(ex.name) + '<div class="muted" style="font-size:12px;margin-top:2px">' + esc(ex.notes) + '</div>' + (ex.guide ? '<a class="guide" href="' + esc(ex.guide) + '" target="_blank" rel="noopener">How to do this ›</a>' : '') + '</td><td>' + ex.sets + '</td><td>' + esc(ex.reps) + '</td></tr>';
       });
       html += '</tbody></table></div>';
     });
